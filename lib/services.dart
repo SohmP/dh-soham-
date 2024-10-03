@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dh/basescaffold.dart'; // Import BaseScaffold
 import 'electrician.dart'; // Import individual service pages
-import 'plumber.dart';
-import 'househelp.dart';
-import 'laundry.dart';
-import 'gardener.dart';
-import 'grocery.dart';
-import 'bicycle.dart';
-import 'transport.dart';
-import 'turf.dart';
+// Import other services similarly
 
 class ServicesScreen extends StatefulWidget {
   @override
@@ -68,28 +61,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
     'assets/turf.png',
   ];
 
-  // Map service names to corresponding pages
-  final Map<String, Widget Function(BuildContext, String, List<String>, List<int>)> servicePages = {
-    'Electrician': (context, title, serviceOptions, serviceCharges) =>
-        ElectricianPage(title: title, imagePath: 'assets/electrician.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Plumber': (context, title, serviceOptions, serviceCharges) =>
-        PlumberPage(title: title, imagePath: 'assets/plumber.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Househelp': (context, title, serviceOptions, serviceCharges) =>
-        HousehelpPage(title: title, imagePath: 'assets/househelp.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Laundry': (context, title, serviceOptions, serviceCharges) =>
-        LaundryPage(title: title, imagePath: 'assets/laundry.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Gardener': (context, title, serviceOptions, serviceCharges) =>
-        GardenerPage(title: title, imagePath: 'assets/gardener.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Grocery': (context, title, serviceOptions, serviceCharges) =>
-        GroceryPage(title: title, imagePath: 'assets/grocery.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Bicycle Booking': (context, title, serviceOptions, serviceCharges) =>
-        BicyclePage(title: title, imagePath: 'assets/bicycle.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Local Transport': (context, title, serviceOptions, serviceCharges) =>
-        TransportPage(title: title, imagePath: 'assets/transport.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-    'Turf & Club': (context, title, serviceOptions, serviceCharges) =>
-        TurfPage(title: title, imagePath: 'assets/turf.png', serviceOptions: serviceOptions, servicesCharge: serviceCharges),
-  };
-
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -105,15 +76,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
               children: List.generate(services.length, (index) {
                 return GestureDetector(
                   onTap: () {
-                    String selectedService = services[index];
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => servicePages[selectedService]!(
-                          context,
-                          selectedService,
-                          serviceNames[index],
-                          servicesCharge[index],
+                        builder: (context) => ElectricianPage(
+                          title: services[index],
+                          imagePath: serviceImages[index],
+                          serviceOptions: [serviceNames[index]],
+                          servicesCharge: [servicesCharge[index]],
                         ),
                       ),
                     );
@@ -149,4 +119,4 @@ class _ServicesScreenState extends State<ServicesScreen> {
       ),
     );
   }
-}
+}  
